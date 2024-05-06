@@ -1,6 +1,7 @@
 package br.com.CaseWilsonIdentificacao.CaseIdentificacao.controller;
 
 import br.com.CaseWilsonIdentificacao.CaseIdentificacao.dto.ClienteDTO;
+import br.com.CaseWilsonIdentificacao.CaseIdentificacao.dto.ClienteDTOv2;
 import br.com.CaseWilsonIdentificacao.CaseIdentificacao.model.InfosSimulacao;
 import br.com.CaseWilsonIdentificacao.CaseIdentificacao.service.ClienteService;
 import jakarta.validation.Valid;
@@ -19,9 +20,14 @@ public class ClienteController {
     @Autowired
     private ClienteService service;
 
-    @GetMapping
-    public Page<ClienteDTO> getAllClientes(@PageableDefault(size = 10) Pageable paginacao){
+    @GetMapping(headers = "API-Version=1")
+    public Page<ClienteDTO> getAllClientesv1(@PageableDefault(size = 10) Pageable paginacao){
         return service.getAll(paginacao);
+    }
+
+    @GetMapping(headers = "API-Version=2")
+    public Page<ClienteDTOv2> getAllClientesv2(@PageableDefault(size = 10) Pageable paginacao){
+        return service.getAllv2(paginacao);
     }
 
     @GetMapping("/{cpf}")

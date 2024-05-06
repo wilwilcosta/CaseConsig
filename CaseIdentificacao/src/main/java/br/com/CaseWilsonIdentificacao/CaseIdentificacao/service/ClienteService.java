@@ -1,6 +1,7 @@
 package br.com.CaseWilsonIdentificacao.CaseIdentificacao.service;
 
 import br.com.CaseWilsonIdentificacao.CaseIdentificacao.dto.ClienteDTO;
+import br.com.CaseWilsonIdentificacao.CaseIdentificacao.dto.ClienteDTOv2;
 import br.com.CaseWilsonIdentificacao.CaseIdentificacao.http.SimulacaoClient;
 import br.com.CaseWilsonIdentificacao.CaseIdentificacao.model.*;
 import br.com.CaseWilsonIdentificacao.CaseIdentificacao.repository.ClienteRepository;
@@ -31,6 +32,23 @@ public class ClienteService {
             public ClienteDTO apply(Cliente cliente) {
                 var dto = new ClienteDTO(){};
                 dto.setId(cliente.getId());
+                dto.setCpf(cliente.getCpf());
+                dto.setNome(cliente.getNome());
+                dto.setCorrentista(cliente.isCorrentista());
+                dto.setSegmento(cliente.getSegmento());
+                dto.setConvenio(cliente.getConvenio());
+
+                return dto;
+            }
+        });
+
+    }
+
+    public Page<ClienteDTOv2> getAllv2(Pageable paginacao){
+        return repository.findAll(paginacao).map(new Function<Cliente, ClienteDTOv2>() {
+            @Override
+            public ClienteDTOv2 apply(Cliente cliente) {
+                var dto = new ClienteDTOv2(){};
                 dto.setCpf(cliente.getCpf());
                 dto.setNome(cliente.getNome());
                 dto.setCorrentista(cliente.isCorrentista());

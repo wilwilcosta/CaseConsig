@@ -1,6 +1,7 @@
 package br.com.CaseWilsonSimulacao.CaseSimulacao.MicrosservicoSimulacao.service;
 
 import br.com.CaseWilsonSimulacao.CaseSimulacao.MicrosservicoSimulacao.dto.SimulacaoDTO;
+import br.com.CaseWilsonSimulacao.CaseSimulacao.MicrosservicoSimulacao.dto.SimulacaoDTOv2;
 import br.com.CaseWilsonSimulacao.CaseSimulacao.MicrosservicoSimulacao.http.ClientCustodia;
 import br.com.CaseWilsonSimulacao.CaseSimulacao.MicrosservicoSimulacao.model.*;
 import br.com.CaseWilsonSimulacao.CaseSimulacao.MicrosservicoSimulacao.repository.SimulacaoRepository;
@@ -31,6 +32,22 @@ public class SimulacaoService {
                 @Override
                 public SimulacaoDTO apply(Simulacao simulacao) {
                     var dto = new SimulacaoDTO(simulacao);
+
+                    return dto;
+                }
+            });
+        }
+        catch (Exception e){
+            throw e;
+        }
+    }
+
+    public Page<SimulacaoDTOv2> getAllv2(Pageable paginacao){
+        try{
+            return repository.findAll(paginacao).map(new Function<Simulacao, SimulacaoDTOv2>() {
+                @Override
+                public SimulacaoDTOv2 apply(Simulacao simulacao) {
+                    var dto = new SimulacaoDTOv2(simulacao);
 
                     return dto;
                 }

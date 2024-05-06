@@ -1,6 +1,7 @@
 package br.com.CaseWilsonCustodia.CaseCustodia.MicrosservicoCustodia.service;
 
 import br.com.CaseWilsonCustodia.CaseCustodia.MicrosservicoCustodia.dto.CustodiaDTO;
+import br.com.CaseWilsonCustodia.CaseCustodia.MicrosservicoCustodia.dto.CustodiaDTOv2;
 import br.com.CaseWilsonCustodia.CaseCustodia.MicrosservicoCustodia.model.Custodia;
 import br.com.CaseWilsonCustodia.CaseCustodia.MicrosservicoCustodia.model.InfosCustodia;
 import br.com.CaseWilsonCustodia.CaseCustodia.MicrosservicoCustodia.repository.CustodiaRepository;
@@ -27,6 +28,17 @@ public class CustodiaService {
             @Override
             public CustodiaDTO apply(Custodia custodia) {
                 var dto = new CustodiaDTO(custodia);
+
+                return dto;
+            }
+        });
+    }
+
+    public Page<CustodiaDTOv2> getAllv2(Pageable paginacao) {
+        return repository.findAll(paginacao).map(new Function<Custodia, CustodiaDTOv2>() {
+            @Override
+            public CustodiaDTOv2 apply(Custodia custodia) {
+                var dto = new CustodiaDTOv2(custodia);
 
                 return dto;
             }

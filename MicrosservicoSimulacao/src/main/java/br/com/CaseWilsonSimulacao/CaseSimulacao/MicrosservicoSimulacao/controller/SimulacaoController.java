@@ -1,6 +1,7 @@
 package br.com.CaseWilsonSimulacao.CaseSimulacao.MicrosservicoSimulacao.controller;
 
 import br.com.CaseWilsonSimulacao.CaseSimulacao.MicrosservicoSimulacao.dto.SimulacaoDTO;
+import br.com.CaseWilsonSimulacao.CaseSimulacao.MicrosservicoSimulacao.dto.SimulacaoDTOv2;
 import br.com.CaseWilsonSimulacao.CaseSimulacao.MicrosservicoSimulacao.model.InfosCliente;
 import br.com.CaseWilsonSimulacao.CaseSimulacao.MicrosservicoSimulacao.service.SimulacaoService;
 import jakarta.validation.Valid;
@@ -21,9 +22,14 @@ public class SimulacaoController {
     @Autowired
     private SimulacaoService service;
 
-    @GetMapping
+    @GetMapping(headers = "API-Version=1")
     public Page<SimulacaoDTO> getAllSimulacoes(@PageableDefault(size = 10) Pageable paginacao){
         return service.getAll(paginacao);
+    }
+
+    @GetMapping(headers = "API-Version=2")
+    public Page<SimulacaoDTOv2> getAllSimulacoesv2(@PageableDefault(size = 10) Pageable paginacao){
+        return service.getAllv2(paginacao);
     }
 
     @PostMapping
